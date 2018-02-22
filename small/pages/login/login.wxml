@@ -1,0 +1,23 @@
+<view class="main-login">
+<view class="LoginBg m-warpper">
+    <view class="m-loginArea">
+        <form bindsubmit="submitLogin">
+            <view class="m-input-row">
+                <label>用户名：</label>
+                <view class="m-input">
+                    <input value="{{this.state.username}}" type="text" name="" bindinput="nameChange"/>
+                </view>
+            </view>
+            <view class="m-input-row">
+                <label>密码：</label>
+                <view class="m-input">
+                    <input value="{{this.state.password}}" type="password" name="" bindinput="passChange"/>
+                </view>
+            </view>
+        <view class="loginBar">
+            <button type="warn" class="save-btn" formType="submit">登录</button>
+        </view>
+        </form>
+    </view>
+</view>
+</view>
