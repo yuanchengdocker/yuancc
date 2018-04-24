@@ -1,13 +1,12 @@
-<!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+<view class="main">
+
+    <block wx:for="{{memberList}}" wx:key="product" wx:for-item="part">
+      <view class="list scroll-view-item">
+        <text class="yuan">{{part.name}}</text>
+        <text class="fen">{{part.phone}}</text>
+        <text class="unit">{{part.remark}}</text>
+      </view>
     </block>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
+    <view class="loading" hidden="{{!searchLoading}}"><image class='load-icon' src='../../img/refresh.png'></image>正在载入更多...</view>  
+    <view class="loading complete" hidden="{{!searchLoadingComplete}}">已加载全部</view>  
 </view>

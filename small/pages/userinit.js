@@ -3,7 +3,7 @@ import { setCookie, getCookie, delCookie, clearCookie } from '../utils/optcookie
 
 export function getUser() {
   var user = getCookie("user");
-  user = JSON.parse(user)
+  user = user?JSON.parse(user):user;
   return user;
 }
 export function delUser() {

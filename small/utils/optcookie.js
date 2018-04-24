@@ -2,7 +2,8 @@ export function setCookie(name, value, time) {
   var strsec = getsec(time);
   var exp = new Date();
   exp.setTime(exp.getTime() + strsec * 1);
-  document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
+  wx.setStorageSync(name, value)
+  // document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
 }
 export function getsec(str) {
   var str1 = str.substring(1, str.length) * 1;
@@ -18,24 +19,43 @@ export function getsec(str) {
   }
 }
 export function getCookie(name) {
-  var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
-  if (arr = document.cookie.match(reg))
-    return unescape(arr[2]);
-  else
-    return null;
+  // var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+  // if (arr = document.cookie.match(reg))
+  //   return unescape(arr[2]);
+  // else
+  //   return null;
+
+  try {
+    var value = wx.getStorageSync(name)
+    return value;
+  } catch (e) {
+    console.log(e)
+  }
 }
 
 export function delCookie(name) {
-  var exp = new Date();
-  exp.setTime(exp.getTime() - 1);
-  var cval = getCookie(name);
-  if (cval != null)
-    document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
+  try {
+    wx.removeStorageSync(name)
+  } catch (e) {
+    console.log(e)
+  }
+
+  // var exp = new Date();
+  // exp.setTime(exp.getTime() - 1);
+  // var cval = getCookie(name);
+  // if (cval != null)
+  //   document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
 }
 export function clearCookie() {
-  var keys = document.cookie.match(/[^ =;]+(?=\=)/g);
-  if (keys) {
-    for (var i = keys.length; i--;)
-      document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString()
+  try {
+    wx.clearStorageSync()
+  } catch (e) {
+    console.log(e)
   }
+
+  // var keys = document.cookie.match(/[^ =;]+(?=\=)/g);
+  // if (keys) {
+  //   for (var i = keys.length; i--;)
+  //     document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString()
+  // }
 }

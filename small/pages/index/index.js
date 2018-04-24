@@ -3,13 +3,13 @@ const utils = require('../../utils/util.js')
 //index.js
 //获取应用实例
 const app = getApp()
-
 Page({
   data: {
-    motto: 'Hello World yuan',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    memberList: [],
+    searchLoading:false,
+    searchLoadingComplete:false,
+    pageSize:20,
+    currentPage:1
   },
   //事件处理函数
   bindViewTap: function() {
@@ -18,41 +18,27 @@ Page({
     })
   },
   onLoad: function () {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
-
     this.memberDataInit();
   },
   memberDataInit:function(){
+    var self = this;
     utils.postUrl(
       urlparams.getMemberList,
-      { "currentPage": 1, "pageSize": 10, "table": "member", "param": {} },
+      { "currentPage": self.data.currentPage, "pageSize": self.data.pageSize, "table": "member", "param": {} },
       data => {
-        console.log(data)
+        if (data && data.length == self.data.pageSize){
+          this.setData({
+            searchLoading:false,
+            memberList: self.data.memberList.concat(data)
+          })
+        }else{
+          this.setData({
+            searchLoading: false,
+            searchLoadingComplete:true,
+            memberList: self.data.memberList.concat(data)
+          })
+        }
+        wx.stopPullDownRefresh()
       }
     )
   },
@@ -66,6 +52,23 @@ Page({
   },
   onPullDownRefresh:function(){
     console.log("下拉刷新")
+    this.setData({
+      memberList: [],
+      currentPage: 1,
+      searchLoading: false,
+      searchLoadingComplete: false
+    })
+    this.memberDataInit();
+  },
+  onShareAppMessage:function(){
+    
+  },
+  onReachBottom:function(e){
+    if(this.data.searchLoadingComplete) return;
+    this.setData({
+      searchLoading:true,
+      currentPage: this.data.currentPage+1
+    })
     this.memberDataInit();
   }
 })

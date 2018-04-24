@@ -5,7 +5,6 @@
     "pages/logs/logs"
   ],
   "window":{
-    "backgroundTextStyle":"light",
     "navigationBarTextStyle":"white",
     "navigationBarTitleText": "yuancc",
     "navigationBarBackgroundColor": "#000",

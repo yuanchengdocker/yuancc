@@ -163,7 +163,7 @@
 	border: none;
 	color: #fff;
 	outline: 0;
-	padding: 8px 24px;
+	padding: 3px 24px;
 	border-radius: 5px;
 	font-size: 13px;
 	cursor: pointer;

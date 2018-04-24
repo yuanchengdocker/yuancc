@@ -4,6 +4,13 @@ const optcookie = require('../../utils/optcookie.js')
 import { getUser, setUser, setToken, delUser } from '../userinit'
 const app = getApp()
 
+var user = getUser();
+if (user) {
+  wx.redirectTo({
+    url: '/pages/index/index'
+  })
+}
+
 Page({
   data: {
    user:"",
@@ -11,7 +18,6 @@ Page({
   },
   onLoad: function (options) {
     console.log('onLoad', options)
-
   },
   nameChange:function(e){
     this.data.user = e.detail.value;
@@ -31,6 +37,9 @@ Page({
       data => {
         setToken(data.token);
         setUser(data.user); 
+        wx.redirectTo({
+          url: '/pages/index/index'
+        })
       },
       e => {
         console.log(e)

@@ -1,3 +1,5 @@
+import { setCookie, getCookie, delCookie, clearCookie } from './optcookie'
+
 const formatTime = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -23,7 +25,10 @@ const postUrl = (url,param,callback) => {
     url: url,
     data: param,
     method: "POST",
-    headers:{"Content-Type": "application/x-www-form-urlencoded" },
+    header:{
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Cookie":"token="+getCookie("token")+";"+"user="+getCookie("user")
+    },
     success: function (res) {
       if (res.data.code == 1000) {
         callback && callback(res.data.data);
