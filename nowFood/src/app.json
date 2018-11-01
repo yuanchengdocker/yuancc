@@ -2,12 +2,13 @@
   "pages": [
     "pages/index/main",
     "pages/logs/main",
-    "pages/counter/main"
+    "pages/foodList/main",
+    "pages/foodDetail/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "袁工选餐",
     "navigationBarTextStyle": "black"
   }
 }

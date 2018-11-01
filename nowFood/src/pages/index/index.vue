@@ -10,25 +10,16 @@
 
     打算叫什么外卖呢，点击随机进行选择吧！
 
-    <button bindtap="setLoading" @click="gotoCheck" :loading="isLoading">随机筛选</button>
-    <button bindtap="setLoading" @click="gotoCheck">查看菜品</button>
-
-    <form class="form-container">
-      <input type="text" class="form-control" v-model="motto" placeholder="v-model" />
-      <input type="text" class="form-control" v-model.lazy="motto" placeholder="v-model.lazy" />
-    </form>
-    <a href="/pages/counter/main" class="counter">去往Vuex示例</a>
+    <button bindtap="setLoading" :size="'default'" @click="gotoCheck" :disabled="isLoading" :loading="isLoading">随机筛选</button>
+    <button bindtap="setLoading" @click="goFoodMenu">查看菜品</button>
   </div>
 </template>
 
 <script>
 import card from "@/components/card";
-import { setTimeout } from 'timers';
-
 export default {
   data() {
     return {
-      motto: "Hello World",
       hi:this.getNowTime()+'好',
       userInfo: {},
       isLoading:false
@@ -59,7 +50,7 @@ export default {
       return msg
     },
     goFoodMenu() {
-      const url = "../logs/main"
+      const url = "../foodList/main"
       wx.navigateTo({ url })
     },
     getUserInfo() {
