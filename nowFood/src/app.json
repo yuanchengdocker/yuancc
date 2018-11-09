@@ -3,7 +3,8 @@
     "pages/index/main",
     "pages/logs/main",
     "pages/foodList/main",
-    "pages/foodDetail/main"
+    "pages/foodDetail/main",
+    "pages/foodEdit/main"
   ],
   "window": {
     "backgroundTextStyle": "light",

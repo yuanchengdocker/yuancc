@@ -1,6 +1,12 @@
 <template>
   <div class="weui-article">
-    <div class="weui-article__h1">大标题</div>
+    <div class="weui-article__h1 title-opt">
+      <span> 大标题</span>
+      <div class="opt">
+        <Button size="mini" type="primary" @click="editeFood">编辑</Button>
+        <Button size="mini" type="primary" @click="deleteFood">删除</Button>
+      </div>
+    </div>
     <div class="weui-article__section">
       <div class="weui-article__title">章标题</div>
       <div class="weui-article__section">
@@ -23,9 +29,21 @@ export default {
     return {};
   },
   computed: {},
-  methods: {}
+  methods: {
+    editeFood(){
+      const url = "../foodEdit/main"
+      wx.navigateTo({ url })
+    },
+    deleteFood(){}
+  }
 };
 </script>
 
-<style>
+<style scoped>
+.title-opt{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 </style>
+
