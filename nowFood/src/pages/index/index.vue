@@ -8,7 +8,7 @@
       </div>
     </div>
 
-    打算叫什么外卖呢，点击随机进行选择吧！
+    打算叫什么外卖呢，点击随机进行选择吧
 
     <button bindtap="setLoading" :size="'default'" @click="gotoCheck" :disabled="isLoading" :loading="isLoading">随机筛选</button>
     <button bindtap="setLoading" @click="goFoodMenu">查看菜品</button>
@@ -17,6 +17,7 @@
 
 <script>
 import card from "@/components/card";
+import {getService} from '../../common/service'
 export default {
   data() {
     return {
@@ -28,6 +29,12 @@ export default {
 
   components: {
     card
+  },
+
+  mounted(){
+    getService('/index').then((d)=>{
+      console.log(d)
+    })
   },
 
   methods: {

@@ -19,11 +19,15 @@
           <div class="weui-cell__ft weui-cell__ft_in-access"></div>
         </navigator>
     </div>
+    <picker class="weui-btn" mode="date" :value="date" start="2015-09-01" end="2017-09-01" @change="bindDateChange">
+      <button type="default">日期选择器</button>
+    </picker>
+
     <div class="weui-footer weui-footer_fixed-bottom">
       <div class="weui-footer__links">
         <button bindtap="setLoading" @click="goFoodMenu">新增菜品</button>
       </div>
-      </div>
+    </div>
   </div>
 </template>
 
@@ -34,6 +38,7 @@ import store from "./store";
 export default {
   data() {
     return {
+      openSimple: false,
       icon: require("../../../static/image/list-flag.png")
     };
   },
@@ -48,6 +53,13 @@ export default {
     },
     decrement() {
       store.commit("decrement");
+    },
+    bindDateChange () {
+      this.openSimple = true;
+    },
+    goFoodMenu(){
+      const url = "../foodEdit/main"
+      wx.navigateTo({ url })
     }
   }
 };
