@@ -11,9 +11,9 @@ fs.readdirSync('node_modules')
         nodeModules[mod] = 'commonjs ' + mod;
     });
 module.exports = {
-    entry: ['webpack/hot/poll?1000','./app.js'],
+    entry: ['webpack/hot/poll?1000','../server/app.js'],
     output: {
-        path: path.resolve(__dirname, 'server_dist'),
+        path: path.resolve(__dirname, '../dist_server'),
         filename: 'server.js'
     },
     target: 'node',
@@ -40,7 +40,7 @@ module.exports = {
         }]
     },
     resolve: {
-        extensions: ['', '.js', '.json']
+        extensions: ['.js', '.json']
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin()
