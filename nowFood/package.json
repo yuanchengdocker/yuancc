@@ -6,8 +6,9 @@
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
-    "start": "node build/dev-server.js",
-    "server": "webpack --watch --progress --config=build/webpack.server.conf.js && node dist_server/server.js",
+    "start": "npm run dev & npm run server & npm run start_server",
+    "server": "webpack --watch --progress --config=build/webpack.server.conf.js",
+    "start_server": "nodemon dist_server/server.js",
     "build": "node build/build.js",
     "lint": "eslint --ext .js,.vue src"
   },
@@ -54,6 +55,7 @@
     "mpvue-loader": "^1.1.2",
     "mpvue-template-compiler": "^1.0.11",
     "mpvue-webpack-target": "^1.0.0",
+    "nodemon": "^1.18.9",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
     "ora": "^2.0.0",
     "portfinder": "^1.0.13",
