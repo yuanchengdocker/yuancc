@@ -47,7 +47,8 @@ export default {
     editeFood() {},
     deleteFood() {},
     saveFood(){
-      
+      const url = "../foodList/main"
+      wx.navigateTo({ url })
     },
     chooseImage(e) {
       var _this = this;
