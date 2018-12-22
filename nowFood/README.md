@@ -1,6 +1,6 @@
-# vue-small
+# nowFood
 
-> this is cheney small
+> 这是一个管理外卖自动选餐，或大数据自动推荐选餐
 
 ## Build Setup
 
@@ -8,14 +8,15 @@
 # install dependencies
 npm install
 
-# serve with hot reload at localhost:8080
+# 运行前端小程序开发代码
 npm run dev
 
-# build for production with minification
+# 开始时候运行前端、后端自动构建与自动服务重启
+npm run start
+
+# 运行前端生产代码
 npm run build
 
 # build for production and view the bundle analyzer report
 npm run build --report
 ```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
