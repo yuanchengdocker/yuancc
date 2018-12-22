@@ -4,18 +4,11 @@
       <span>如下為已存在菜單（或店名）</span>
     </div>
     <div class="weui-cells weui-cells_after-title">
-        <navigator url="/pages/foodDetail/main" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <navigator v-for="(food,index) in foods" :key="index" url="/pages/foodDetail/main" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
           <div class="weui-cell__hd">
-            <image :src="icon" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+            <image :src="food.img_url||icon" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
           </div>
-          <div class="weui-cell__bd">cell standard</div>
-          <div class="weui-cell__ft weui-cell__ft_in-access"></div>
-        </navigator>
-        <navigator url="/pages/foodDetail/main" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-          <div class="weui-cell__hd">
-            <image :src="icon" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
-          </div>
-          <div class="weui-cell__bd">cell standard</div>
+          <div class="weui-cell__bd">{{food.name}}</div>
           <div class="weui-cell__ft weui-cell__ft_in-access"></div>
         </navigator>
     </div>
@@ -34,18 +27,24 @@
 <script>
 // Use Vuex
 import store from "./store";
-
+import {getService} from '../../common/service'
 export default {
   data() {
     return {
       openSimple: false,
-      icon: require("../../../static/image/list-flag.png")
+      icon: require("../../../static/image/list-flag.png"),
+      foods:[]
     };
   },
   computed: {
     count() {
       return store.state.count;
     }
+  },
+  mounted(){
+    getService('/index').then((d)=>{
+      this.foods = d
+    })
   },
   methods: {
     increment() {

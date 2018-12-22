@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import card from "@/components/card";
+import card from "@/components/card"
 import {getService} from '../../common/service'
 export default {
   data() {
@@ -29,12 +29,6 @@ export default {
 
   components: {
     card
-  },
-
-  mounted(){
-    getService('/index').then((d)=>{
-      console.log(d)
-    })
   },
 
   methods: {

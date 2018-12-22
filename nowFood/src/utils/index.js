@@ -35,5 +35,5 @@ export function showLoading(){
 }
 
 export function hideLoading(){
-  wx.hideLoading()
+  setTimeout(wx.hideLoading,500)
 }

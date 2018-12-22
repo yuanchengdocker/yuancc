@@ -6,15 +6,25 @@ const
     Router = require('koa-router'),
     path = require('path'),
     session = require('koa-session'),
+    log4js = require('log4js'),
     LoggerFactory = require('./lib/requestLog.js')
 
 import configs from './config/config.default.js'
+import router from './app/router/routes'
 
 var app = new Koa()
-var router = new Router()
 
-var isDev = process.env.NODE_ENV !== "production"
+try {
+    require('fs').mkdirSync(path.join(__dirname,'log'));
+} catch (e) {
+    if (e.code != 'EEXIST') {
+        console.error("Could not set up log directory, error was: ", e);
+        process.exit(1);
+    }
+}
 
+log4js.configure(configs.log);
+var log = log4js.getLogger("startup");
 
 //配置session的中间件
 app.keys = ['some secret hurr'];   /*cookie的签名*/
@@ -28,24 +38,12 @@ const config = {
     renew: false
 }
 app.use(LoggerFactory.getLogger(configs))
-app.use(session(config,app))
-
-router.get('/index', async (ctx) => {
-    // console.log(ctx.session)
-    // ctx.response.type = 'html'
-    // await ctx.render('index1',{list:{name:'张三'}})
-    ctx.body = {code:0,data:[1,2,3,4]}
-})
-router.get('/new', async (ctx) => {
-    ctx.body = `this page session is ${ctx.session.userinfo}`
-})
-router.get('/login', async (ctx) => {
-    ctx.session.userinfo = "张三"
-    ctx.body = "登录成功"
-})
+app.use(session(config, app))
 
 app.use(router.routes())
 app.use(router.allowedMethods())
 
-app.listen(configs.port)
-console.log('服务开启！')
+var server = app.listen(configs.port, ()=>{
+    log.info('Express server listening on port ', server.address().port, " with pid ", process.pid );
+    console.log('服务开启！')
+})
